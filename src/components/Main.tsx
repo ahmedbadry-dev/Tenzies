@@ -20,14 +20,6 @@ const Main = () => {
       }
     )))
   }
-
-  // const cheakValue = () => {
-  //   const firstBtnId = numbers.find(num => (
-  //     num.isClicked === true
-  //   ))
-
-  // }
-
   const handleButtonClicked = (id: number) => {
     setNumber(prev => {
       // get the first number value 
@@ -62,6 +54,16 @@ const Main = () => {
     isWin() ? setUserIsWin(true) : null
   }, [numbers])
 
+  const handlePlayAgainClick = () => {
+    setNumber(prev => prev.map(num => (
+      {
+        ...num,
+        isClicked: false,
+        number: generateRandomNumber()
+      }
+    )))
+  }
+
   return (
     <main>
       <Message />
@@ -78,7 +80,7 @@ const Main = () => {
       </button>
         :
         <button
-          onClick={handleRollClick}
+          onClick={handlePlayAgainClick}
           className='bg-cyan-500 text-zinc-100 p-4 text-2xl w-full rounded-xl tracking-widest font-medium'
         >
           play again
