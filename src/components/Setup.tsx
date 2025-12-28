@@ -7,6 +7,9 @@ const Setup = () => {
   return (
     <div>
       <p>{name}</p>
+      <p>{name}</p>
+      <p>{name}</p>
+      <p>{name}</p>
       <img src="/assets/react.svg" alt="react img" />
     </div>
   )
