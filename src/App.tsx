@@ -1,12 +1,15 @@
 
+import Header from './components/Header'
+import Main from './components/Main'
 import './css/index.css'
-import Setup from './components/Setup'
+
 
 function App() {
 
   return ( 
-    <div className='font-display bg-amber-300'>
-      <Setup />
+    <div>
+      <Header />
+      <Main />
     </div>
   )
 }
