@@ -1,4 +1,4 @@
-
+import ReactLogo from '../assets/react.svg'
 const Setup = () => {
 
   const name: string = 'ahmed'
@@ -10,7 +10,7 @@ const Setup = () => {
       <p>{name}</p>
       <p>{name}</p>
       <p>{name}</p>
-      <img src="/assets/react.svg" alt="react img" />
+      <img src={ReactLogo} alt="react img" />
     </div>
   )
 }
