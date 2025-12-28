@@ -1,8 +1,7 @@
-
 const Header = () => {
   return (
-    <div>
-      header
+    <div className=" p-4 text-3xl font-medium text-center ">
+      Tenzies
     </div>
   )
 }
