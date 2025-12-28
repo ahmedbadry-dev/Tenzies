@@ -20,14 +20,6 @@ const Main = () => {
       }
     )))
   }
-
-  // const cheakValue = () => {
-  //   const firstBtnId = numbers.find(num => (
-  //     num.isClicked === true
-  //   ))
-
-  // }
-
   const handleButtonClicked = (id: number) => {
     setNumber(prev => {
       // get the first number value 
