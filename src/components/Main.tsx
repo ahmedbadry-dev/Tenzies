@@ -69,7 +69,7 @@ const Main = () => {
     <main>
       {userIsWin && <Confetti width={width} height={height} />}
       <Message />
-      <section className='grid grid-cols-5 gap-5 my-10'>
+      <section className='grid grid-cols-3 md:grid-cols-5 gap-5 my-10'>
         {numbers.map((num) => (
           <Button key={num.id} num={num} handleButtonClicked={handleButtonClicked} />
         ))}
