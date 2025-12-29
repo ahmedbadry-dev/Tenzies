@@ -1,3 +1,5 @@
+import Confetti from 'react-confetti'
+import { useWindowSize } from 'react-use'
 
 import Message from './Message'
 import Button from './Button'
@@ -12,6 +14,7 @@ const generateRandomNumber = (): number => {
 const Main = () => {
 
   const [numbers, setNumbers] = useState(numberData)
+  const { width, height } = useWindowSize()
 
   const handleRollClick = () => {
     setNumbers(prev =>
@@ -64,6 +67,7 @@ const Main = () => {
 
   return (
     <main>
+      {userIsWin && <Confetti width={width} height={height} />}
       <Message />
       <section className='grid grid-cols-5 gap-5 my-10'>
         {numbers.map((num) => (
