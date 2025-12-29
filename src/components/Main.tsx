@@ -1,27 +1,35 @@
+import Confetti from 'react-confetti'
+import { useWindowSize } from 'react-use'
 
 import Message from './Message'
 import Button from './Button'
 import numberData from '../api/numberData'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+
+const generateRandomNumber = (): number => {
+  console.log('random called');
+  return Math.floor(Math.random() * 10)
+}
+
 const Main = () => {
 
-  const [numbers, setNumber] = useState(numberData)
-  const [UserIsWin, setUserIsWin] = useState(false)
-
-  const generateRandomNumber = (): number => {
-    return Math.floor(Math.random() * 10)
-  }
+  const [numbers, setNumbers] = useState(numberData)
+  const { width, height } = useWindowSize()
 
   const handleRollClick = () => {
-    setNumber(prev => prev.map(num => (
-      {
-        ...num,
-        number: !num.isClicked ? generateRandomNumber() : num.number
-      }
-    )))
+    setNumbers(prev =>
+      prev.map(num =>
+        num.isClicked
+          ? num
+          : { ...num, number: generateRandomNumber() }
+      )
+    )
   }
+
   const handleButtonClicked = (id: number) => {
-    setNumber(prev => {
+    console.log('dic clicked');
+
+    setNumbers(prev => {
       // get the first number value 
       const firstClicked = prev.find(n => n.isClicked)
 
@@ -36,7 +44,7 @@ const Main = () => {
 
         // if we have firstClicked already so we need check if number value for this click btn now === firstClicked value
         if (num.number === firstClicked.number) {
-          return { ...num, isClicked: true }
+          return { ...num, isClicked: !num.isClicked }
         }
 
         return num
@@ -44,48 +52,34 @@ const Main = () => {
     })
   }
 
-  const isWin = () => {
-    return numbers.every(num => (
-      num.isClicked === true
-    ))
-  }
 
-  useEffect(() => {
-    isWin() ? setUserIsWin(true) : null
-  }, [numbers])
+  const userIsWin = numbers.every(num => num.isClicked)
 
   const handlePlayAgainClick = () => {
-    setNumber(prev => prev.map(num => (
-      {
+    setNumbers(
+      numberData.map(num => ({
         ...num,
         isClicked: false,
         number: generateRandomNumber()
-      }
-    )))
+      }))
+    )
   }
 
   return (
     <main>
+      {userIsWin && <Confetti width={width} height={height} />}
       <Message />
-      <section className='grid grid-cols-5 gap-5 my-10'>
+      <section className='grid grid-cols-3 md:grid-cols-5 gap-5 my-10'>
         {numbers.map((num) => (
           <Button key={num.id} num={num} handleButtonClicked={handleButtonClicked} />
         ))}
       </section>
-      {!UserIsWin ? <button
-        onClick={handleRollClick}
+      <button
+        onClick={userIsWin ? handlePlayAgainClick : handleRollClick}
         className='bg-cyan-500 text-zinc-100 p-4 text-2xl w-full rounded-xl tracking-widest font-medium'
       >
-        Roll
+        {userIsWin ? 'Play again' : 'Roll'}
       </button>
-        :
-        <button
-          onClick={handlePlayAgainClick}
-          className='bg-cyan-500 text-zinc-100 p-4 text-2xl w-full rounded-xl tracking-widest font-medium'
-        >
-          play again
-        </button>
-      }
     </main>
   )
 }
